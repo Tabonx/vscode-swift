@@ -37,6 +37,7 @@ function initializationOptions(swiftVersion: Version): any {
                 "swift.run": "swift.run",
                 "swift.debug": "swift.debug",
                 "swift.play": "swift.play",
+                "swift.references": "swift.references",
             },
         },
     };
@@ -260,6 +261,9 @@ export function lspClientOptions(
                             break;
                         case "swift.play":
                             codelens.command.title = `$(play)\u00A0${codelens.command.title}`;
+                            break;
+                        case "swift.references":
+                            codelens.command.title = `${codelens.command.title}`;
                             break;
                     }
                     return codelens;

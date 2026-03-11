@@ -303,6 +303,11 @@
         "icon": "$(debug)"
       },
       {
+        "command": "swift.references",
+        "title": "Find References",
+        "category": "Swift"
+      },
+      {
         "command": "swift.resetPackage",
         "title": "Reset Package Dependencies",
         "icon": "$(clear-all)",

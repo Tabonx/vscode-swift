@@ -87,6 +87,7 @@ export enum Commands {
     RUN = "swift.run",
     DEBUG = "swift.debug",
     PLAY = "swift.play",
+    REFERENCES = "swift.references",
     CLEAN_BUILD = "swift.cleanBuild",
     RESOLVE_DEPENDENCIES = "swift.resolveDependencies",
     SHOW_FLAT_DEPENDENCIES_LIST = "swift.flatDependenciesList",
@@ -155,6 +156,14 @@ export function register(ctx: WorkspaceContext): vscode.Disposable[] {
                 ctx.tasks,
                 PlaygroundNode.isPlaygroundNode(target) ? target.playground : target
             );
+        }),
+        vscode.commands.registerCommand(Commands.REFERENCES, async (...args: unknown[]) => {
+            if (args.length >= 2) {
+                const uri = typeof args[0] === "string" ? vscode.Uri.parse(args[0]) : args[0];
+                const pos = args[1] as { line: number; character: number };
+                const position = new vscode.Position(pos.line, pos.character);
+                await vscode.commands.executeCommand("editor.action.findReferences", uri, position);
+            }
         }),
         vscode.commands.registerCommand(Commands.CLEAN_BUILD, async () => await cleanBuild(ctx)),
         vscode.commands.registerCommand(
